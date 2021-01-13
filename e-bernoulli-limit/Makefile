@@ -6,6 +6,10 @@ e.out: e.o
 e.o: e.asm
 	nasm -g -felf64 e.asm
 
+.PHONY: run
+run: e.out
+	./e.out
+
 .PHONY: clean
 clean:
 	rm -f ./*.o ./*.out
