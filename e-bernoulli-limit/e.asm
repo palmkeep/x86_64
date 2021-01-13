@@ -11,17 +11,17 @@ section .text
 
         global _start
 _start:
-        movsd   xmm0, qword [mf]
+        movsd   xmm0, qword [rel mf]
         
-        mov     rax, [n]
+        mov     rax, [rel n]
 loop:
         mulsd   xmm0, xmm0
         sub     rax, 1
         jne     loop
 
-        lea     rdi, [cformats]     ; Load format string
+        lea     rdi, [rel cformats]     ; Load format string
         mov     rax, 1              ; Tell printf to use one xmm register as parameter
-        call    printf
+        call    [rel printf wrt ..got]
 
 exit:
         mov     rax, 60             ; sys_exit (linux x86_64)
@@ -29,7 +29,7 @@ exit:
         syscall
 
 
-;section .rodata
+section .rodata
 n:          dq 52                                               ; |-52|         : integer
 mf:         db 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f   ; 1 + 2**(-52)  : double
 
