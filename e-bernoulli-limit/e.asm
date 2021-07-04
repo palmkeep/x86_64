@@ -20,11 +20,11 @@ loop:
         jne     loop
 
         lea     rdi, [rel cformats]     ; Load format string
-        mov     rax, 1              ; Tell printf to use one xmm register as parameter
+        mov     rax, 1                  ; Tell printf to use one xmm register as parameter
         call    [rel printf wrt ..got]
 
 exit:
-        mov     rax, 60             ; sys_exit (linux x86_64)
+        mov     rax, 60                 ; sys_exit (linux x86_64)
         xor     rdi, rdi
         syscall
 
